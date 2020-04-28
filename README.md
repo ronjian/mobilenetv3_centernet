@@ -24,18 +24,18 @@ no test time augmentation,
 
 
 
-####Face
+### Face
 
-The model for tensorflow pb is 900k+, and half precision for mnn and coreml , about 512k and 380k, 
-and if int8 quantization, a smaller one can be achieved.
+The model for the face detection task is quite small, for tensorflow pb is 900k+, and half precision for mnn and coreml , about 512k and 380k separately. 
+And if int8 quantization, a smaller one can be achieved.
 
-### fddb
+#### fddb
 | model                     |input_size |fddb      |
 | :------:                  |:------:   |:------:  |
 |  [mbv3-small-minimalistic_modified](https://drive.google.com/open?id=1mnj2DLKMrVvmtayxEtpTYHdUP-Ybj_BU)  |512x512     | 0.947    |
 
 
-### widerface
+#### widerface
 | model         |input_size  |wider easy|wider medium |wider hard |
 | :------:      |:------:     |:------:  | :------:  | :------:  | 
 |[mbv3-small-minimalistic_modified](https://drive.google.com/open?id=1mnj2DLKMrVvmtayxEtpTYHdUP-Ybj_BU) |512x512      | 0.841    |0.803     |0.488    |
