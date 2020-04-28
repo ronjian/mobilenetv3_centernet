@@ -25,8 +25,10 @@ no test time augmentation,
 
 
 ####Face
+
 The model for tensorflow pb is 900k+, and half precision for mnn and coreml , about 512k and 380k, 
 and if int8 quantization, a smaller one can be achieved.
+
 ### fddb
 | model                     |input_size |fddb      |
 | :------:                  |:------:   |:------:  |
