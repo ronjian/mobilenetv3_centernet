@@ -52,16 +52,15 @@ def inference(mnn_model_path,img_dir,thres=0.3):
         image_show=image.copy()
 
         image = image.astype(np.float32)
-        image = np.transpose(image,axes=[2,0,1])
 
         #cv2 read shape is NHWC, Tensor's need is NCHW,transpose it
-        tmp_input = MNN.Tensor((1, 3,cfg.DATA.hin, cfg.DATA.win), MNN.Halide_Type_Float,\
-                        image, MNN.Tensor_DimensionType_Caffe)
+        tmp_input = MNN.Tensor((1, cfg.DATA.hin, cfg.DATA.win,3), MNN.Halide_Type_Float,\
+                        image, MNN.Tensor_DimensionType_Tensorflow)
         #construct tensor from np.ndarray
         input_tensor.copyFrom(tmp_input)
 
         ### the model is nhwc   caution!!!!!!!!!!!!!!!!
-        interpreter.resizeTensor(input_tensor, (1, cfg.DATA.hin, cfg.DATA.win,3))
+        #interpreter.resizeTensor(input_tensor, (1, cfg.DATA.hin, cfg.DATA.win,3))
 
         interpreter.resizeSession(session)
         interpreter.runSession(session)
@@ -69,12 +68,12 @@ def inference(mnn_model_path,img_dir,thres=0.3):
         output_tensor = interpreter.getSessionOutputAll(session)
 
         boxes=output_tensor['tower_0/concat_1'].getData()
-        print(boxes)
-        boxes=np.reshape(boxes,newshape=[100,6])
-        print(boxes.shape)
+
+        boxes=np.reshape(boxes,newshape=[-1,6])
+
         for i in range(len(boxes)):
             bbox = boxes[i]
-            print(bbox)
+
             if bbox[4]>thres:
 
 

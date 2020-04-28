@@ -39,51 +39,49 @@ def mobilenetv3_large(image,is_training=True):
     return mobilebet_fms
 
 
-def mobilenetv3_small_minimalistic(image,is_training=True):
-
+def mobilenetv3_small_minimalistic(image, is_training=True):
     arg_scope = training_scope(weight_decay=cfg.TRAIN.weight_decay_factor, is_training=is_training)
 
     with tf.contrib.slim.arg_scope(arg_scope):
-        if cfg.DATA.channel==1:
-            if cfg.MODEL.global_stride==8:
-                stride=2
+        if cfg.DATA.channel == 1:
+            if cfg.MODEL.global_stride == 8:
+                stride = 2
             else:
-                stride=1
+                stride = 1
             image = slim.separable_conv2d(image,
                                           3,
                                           [3, 3],
                                           stride=stride,
                                           padding='SAME',
                                           scope='preconv')
-            
-        final_feature, endpoints = mobilnet_v3.small_minimalistic(image,
-                                        depth_multiplier=1.0,
-                                        is_training=is_training,
-                                        base_only=True,
-                                        finegrain_classification_mode=False)
 
-        extern_conv=slim.separable_conv2d(final_feature, 64,
-                                          [3, 3],
-                                          padding='SAME',
-                                          scope='extern1')
-        extern_conv = slim.separable_conv2d(extern_conv, 64,
+        final_feature, endpoints = mobilnet_v3.small_minimalistic(image,
+                                                                  depth_multiplier=1.0,
+                                                                  is_training=is_training,
+                                                                  base_only=True,
+                                                                  finegrain_classification_mode=False)
+
+        extern_conv = slim.separable_conv2d(final_feature, 128,
+                                            [3, 3],
+                                            stride=2,
+                                            padding='SAME',
+                                            scope='extern1')
+        extern_conv = slim.separable_conv2d(extern_conv, 96,
                                             [3, 3],
                                             padding='SAME',
                                             scope='extern2')
         extern_conv = slim.separable_conv2d(extern_conv, 128,
-                                            [5, 5],
+                                            [3, 3],
                                             padding='SAME',
                                             scope='extern3')
 
+        for k, v in endpoints.items():
+            print('mobile backbone output:', k, v)
 
-        for k,v in endpoints.items():
-            print('mobile backbone output:',k,v)
-
-        mobilebet_fms=[endpoints['layer_3/expansion_output'],
-                       endpoints['layer_5/expansion_output'],
-                       endpoints['layer_9/expansion_output'],
-                       #final_feature,
-                       extern_conv]
-
+        mobilebet_fms = [endpoints['layer_3/expansion_output'],
+                         endpoints['layer_5/expansion_output'],
+                         endpoints['layer_9/expansion_output'],
+                         # final_feature,
+                         extern_conv]
 
     return mobilebet_fms

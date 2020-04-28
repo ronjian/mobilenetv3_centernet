@@ -23,16 +23,20 @@ no test time augmentation,
 |[mbv3-large-0.75-modified_head](https://drive.google.com/open?id=1pUXyMEE3NPczfQ4jBcIFzzURIaqroVde)  |512x512     | 0.225    | 0.401|0.224  |
 
 
+
+####Face
+The model for tensorflow pb is 900k+, and half precision for mnn and coreml , about 512k and 380k, 
+and if int8 quantization, a smaller one can be achieved.
 ### fddb
 | model                     |input_size |fddb      |
 | :------:                  |:------:   |:------:  |
-|  mbv3-small-minimalistic_modified  |512x512     | 0.95    |
+|  [mbv3-small-minimalistic_modified](https://drive.google.com/open?id=1mnj2DLKMrVvmtayxEtpTYHdUP-Ybj_BU)  |512x512     | 0.947    |
 
 
 ### widerface
 | model         |input_size  |wider easy|wider medium |wider hard |
 | :------:      |:------:     |:------:  | :------:  | :------:  | 
-|mbv3-small-minimalistic_modified |512x512      | 0.842    |0.790     |0.455      |
+|[mbv3-small-minimalistic_modified](https://drive.google.com/open?id=1mnj2DLKMrVvmtayxEtpTYHdUP-Ybj_BU) |512x512      | 0.841    |0.803     |0.488    |
 
 
 ## requirment
