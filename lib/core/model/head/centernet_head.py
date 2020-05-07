@@ -58,8 +58,8 @@ class CenternetHead():
         def _head_conv(fms,dim,child_scope):
             with tf.variable_scope(scope + child_scope):
                 x,y,z,l=fms
-                x = slim.max_pool2d(x, kernel_size=3, stride=1, padding='SAME')
-                x = slim.conv2d(x, dim // 4, kernel_size=[1, 1], stride=1, scope='branchx_1x1_max',
+
+                x = slim.conv2d(x, dim // 4, kernel_size=[1, 1], stride=1, scope='branchx_1x1',
                                           activation_fn=None,
                                           normalizer_fn=None,
                                           biases_initializer=tf.initializers.constant(0.),
@@ -72,13 +72,14 @@ class CenternetHead():
                                 biases_initializer=tf.initializers.constant(0.),
                                 )
 
-                z = slim.separable_conv2d(z, dim // 4, kernel_size=[3, 3], stride=1, scope='branchz_3x3_pre',
-                                          activation_fn=None,
-                                          normalizer_fn=None,
-                                          biases_initializer=tf.initializers.constant(0.),
-                                          )
+                z = slim.max_pool2d(z, kernel_size=3, stride=1, padding='SAME')
+                z = slim.conv2d(z, dim // 4, kernel_size=[1, 1], stride=1, scope='branchz_1x1_max',
+                                activation_fn=None,
+                                normalizer_fn=None,
+                                biases_initializer=tf.initializers.constant(0.),
+                                )
 
-                l = slim.separable_conv2d(l, dim // 4, kernel_size=[5, 5], stride=1, scope='branchse_5x5_pre',
+                l = slim.separable_conv2d(l, dim // 4, kernel_size=[3, 3], stride=1, scope='branchse_3x3_pre',
                                           activation_fn=None,
                                           normalizer_fn=None,
                                           biases_initializer=tf.initializers.constant(0.),
@@ -91,7 +92,7 @@ class CenternetHead():
 
         split_fm = tf.split(fm, num_or_size_splits=4, axis=3)
 
-        kps=_head_conv(split_fm,dim=96,child_scope='kps')
+        kps=_head_conv(split_fm,dim=128,child_scope='kps')
 
         wh = _head_conv(split_fm, dim=64, child_scope='wh')
 
@@ -107,8 +108,6 @@ class CenternetHead():
             y = self._upsample_group_deconv(y,dim=output_dim//2,group=4,scope='branch_y_upsample_deconv')
 
             final=tf.concat([x,y],axis=3)
-
-
 
             return final
 
