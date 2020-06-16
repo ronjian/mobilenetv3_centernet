@@ -25,7 +25,11 @@ config.TRAIN.iter_num_per_epoch = config.TRAIN.train_set_size // config.TRAIN.nu
 config.TRAIN.val_iter=config.TRAIN.val_set_size// config.TRAIN.num_gpu // config.TRAIN.batch_size
 
 config.TRAIN.lr_value_every_step = [0.00001,0.0001,0.00025,0.000025,0.0000025,0.00000025]        ##warm up is used
-config.TRAIN.lr_decay_every_step = [500,1000,250000,350000,450000]
+config.TRAIN.lr_decay_every_step = [int((500/117266.0) * config.TRAIN.train_set_size)
+                                    ,int((1000/117266.0) * config.TRAIN.train_set_size)
+                                    ,int((250000/117266.0) * config.TRAIN.train_set_size)
+                                    ,int((350000/117266.0) * config.TRAIN.train_set_size)
+                                    ,int((450000/117266.0) * config.TRAIN.train_set_size)]
 
 config.TRAIN.opt='adam'
 config.TRAIN.weight_decay_factor = 5.e-5                  ##l2 regular
@@ -64,7 +68,7 @@ config.DATA.max_objs=128
 ##mobilenetv3 as basemodel
 config.MODEL = edict()
 config.MODEL.continue_train=False ### revover from a trained model
-config.MODEL.model_path = './weights/baiguang-mbv3'  # save directory
+config.MODEL.model_path = './weights/baiguang-mbv3/baiguang-mbv3'  # save directory
 config.MODEL.net_structure='MobilenetV3' ######'resnet_v1_50,resnet_v1_101,MobilenetV2
 config.MODEL.pretrained_model='./v3-large_224_0.75_float/ema/model-220000'
 config.MODEL.task='baiguang'

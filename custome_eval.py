@@ -26,7 +26,7 @@ args = ap.parse_args()
 
 MODEL_PATH = args.model
 IMAGE_DIR = args.imgDir
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 detector = FaceDetector([MODEL_PATH])
 coco_map = {0: (1, 'person'), 1: (2, 'bicycle'), 2: (3, 'car'), 3: (4, 'motorcycle'), 4: (5, 'airplane'), 5: (6, 'bus'),
             6: (7, 'train'), 7: (8, 'truck'), 8: (9, 'boat'), 9: (10, 'traffic shufflenet'), 10: (11, 'fire hydrant'),

@@ -5,12 +5,14 @@ import numpy as np
 from easydict import EasyDict as edict
 
 config = edict()
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"          ##if u use muti gpu set them visiable there and then set config.TRAIN.num_gpu
+# os.environ["CUDA_VISIBLE_DEVICES"] = "1"          ##if u use muti gpu set them visiable there and then set config.TRAIN.num_gpu
 config.TRAIN = edict()
 
 #### below are params for dataiter
-config.TRAIN.process_num = 4                      ### process_num for data provider
-config.TRAIN.prefetch_size = 20                  ### prefect Q size for data provider
+# config.TRAIN.process_num = 4                      ### process_num for data provider
+# config.TRAIN.prefetch_size = 20                  ### prefect Q size for data provider
+config.TRAIN.process_num = 1                      ### process_num for data provider
+config.TRAIN.prefetch_size = 1                  ### prefect Q size for data provider
 
 config.TRAIN.num_gpu = 1                         ##match with   os.environ["CUDA_VISIBLE_DEVICES"]
 config.TRAIN.batch_size = 8                   ###A big batch size may achieve a better result, but the memory is a problem
@@ -25,7 +27,11 @@ config.TRAIN.iter_num_per_epoch = config.TRAIN.train_set_size // config.TRAIN.nu
 config.TRAIN.val_iter=config.TRAIN.val_set_size// config.TRAIN.num_gpu // config.TRAIN.batch_size
 
 config.TRAIN.lr_value_every_step = [0.00001,0.0001,0.00025,0.000025,0.0000025,0.00000025]        ##warm up is used
-config.TRAIN.lr_decay_every_step = [500,1000,250000,350000,450000]
+config.TRAIN.lr_decay_every_step = [int((500/117266.0) * config.TRAIN.train_set_size)
+                                    ,int((1000/117266.0) * config.TRAIN.train_set_size)
+                                    ,int((250000/117266.0) * config.TRAIN.train_set_size)
+                                    ,int((350000/117266.0) * config.TRAIN.train_set_size)
+                                    ,int((450000/117266.0) * config.TRAIN.train_set_size)]
 
 config.TRAIN.opt='adam'
 config.TRAIN.weight_decay_factor = 5.e-5                  ##l2 regular

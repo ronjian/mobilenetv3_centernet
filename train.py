@@ -4,6 +4,7 @@ import setproctitle
 
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
 logger.info('train start')
 setproctitle.setproctitle("detect")

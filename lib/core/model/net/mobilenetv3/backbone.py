@@ -11,9 +11,7 @@ from lib.core.model.fpn.seperateconv_fpn import create_fpn_net
 def mobilenetv3_large(image,is_training=True):
 
     arg_scope = training_scope(weight_decay=cfg.TRAIN.weight_decay_factor, is_training=is_training)
-
     with tf.contrib.slim.arg_scope(arg_scope):
-
         _, endpoints = mobilnet_v3.large(image,
                                         depth_multiplier=0.75,
                                         is_training=is_training,

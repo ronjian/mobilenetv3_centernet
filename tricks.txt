@@ -1,0 +1,17 @@
+# backbone:
+- mobilenetv3 0.75width large, pretrained
+# 上采样
+- 先conv(5x5) 再 upsample
+- 分组（4）transposeconv
+- 一半upsample, 一半transposeconv
+- fpn
+- 上采样深度: 256->192->128
+# head:
+- dims: hm128, wh:64, reg:64
+- group1: maxpool(3x3), sep-conv(3x3)
+- group2: conv(1x1)
+- group3: sep-conv(3x3)
+- group4: sep-conv(5x5)
+- 1x1 conv -> class number
+# loss
+- 正则： weight decay, l2 loss
