@@ -70,8 +70,8 @@ class FaceDetector:
         kps=kps[0][0][:,:,0]
         label =kps
         #label = (label / np.max(label) * 255).astype(np.uint8)
-        cv2.namedWindow('label', 0)
-        cv2.imshow('label', label)
+        # cv2.namedWindow('label', 0)
+        # cv2.imshow('label', label)
 
 
         bboxes = self.py_nms(np.array(bboxes), iou_thres=None, score_thres=score_threshold,max_boxes=max_boxes)

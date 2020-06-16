@@ -89,7 +89,10 @@ python model_eval/custome_eval.py --model model/detector.pb
                                 --annFile ../mscoco/annotations/instances_val2017.json
                                 --imgDir ../mscoco/val2017
                                 --is_show 1
-
+python model_eval/custome_eval.py --model model/mscoco_mbv3_0.75/detector.pb \
+                                --annFile /workspace/centernet/data/coco/annotations/instances_val2017.json \
+                                --imgDir /workspace/centernet/data/coco/val2017 \
+                                --is_show 0
 ps, no test time augmentation is used.
 ```
 

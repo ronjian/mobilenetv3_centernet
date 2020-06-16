@@ -72,7 +72,7 @@ config.ANCHOR.NEGATIVE_ANCHOR_THRESH = 0.4
 ##mobilenetv3 as basemodel
 config.MODEL = edict()
 config.MODEL.continue_train=False ### revover from a trained model
-config.MODEL.model_path = './model/'  # save directory
+config.MODEL.model_path = './weights/'  # save directory
 config.MODEL.net_structure='resnet_v2_50' ######'resnet_v1_50,resnet_v1_101,MobilenetV2
 config.MODEL.pretrained_model='resnet_v2_50.ckpt'
 config.MODEL.fpn_dims=[256,256,256,256,256]

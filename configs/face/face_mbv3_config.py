@@ -65,7 +65,7 @@ config.DATA.cracy_crop=0.3
 ##mobilenetv3 as basemodel
 config.MODEL = edict()
 config.MODEL.continue_train=False ### revover from a trained model
-config.MODEL.model_path = './model/'  # save directory
+config.MODEL.model_path = './weights/'  # save directory
 config.MODEL.net_structure='MobilenetV3' ######'resnet_v1_50,resnet_v1_101,MobilenetV2
 config.MODEL.pretrained_model='./v3-small-minimalistic_224_1.0_float/ema/model-498000'
 config.MODEL.task='face'

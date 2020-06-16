@@ -13,13 +13,13 @@ config.TRAIN.process_num = 4                      ### process_num for data provi
 config.TRAIN.prefetch_size = 20                  ### prefect Q size for data provider
 
 config.TRAIN.num_gpu = 1                         ##match with   os.environ["CUDA_VISIBLE_DEVICES"]
-config.TRAIN.batch_size = 8                   ###A big batch size may achieve a better result, but the memory is a problem
+config.TRAIN.batch_size = 16                   ###A big batch size may achieve a better result, but the memory is a problem
 config.TRAIN.log_interval = 1
 config.TRAIN.epoch = 300                      ###just keep training , evaluation shoule be take care by yourself,
                                                ### generally 10,0000 iters is enough
 
-config.TRAIN.train_set_size=117266            ###widerface train size
-config.TRAIN.val_set_size=5000             ###widerface val size
+config.TRAIN.train_set_size=13112            ###widerface train size
+config.TRAIN.val_set_size=1556             ###widerface val size
 
 config.TRAIN.iter_num_per_epoch = config.TRAIN.train_set_size // config.TRAIN.num_gpu // config.TRAIN.batch_size
 config.TRAIN.val_iter=config.TRAIN.val_set_size// config.TRAIN.num_gpu // config.TRAIN.batch_size
@@ -39,16 +39,18 @@ config.TRAIN.gradient_clip=False
 
 config.DATA = edict()
 config.DATA.root_path=''
-config.DATA.train_txt_path='data/coco-train.txt'
-config.DATA.val_txt_path='data/coco-val.txt'
-config.DATA.num_category=80                                  ###face 1  voc 20 coco 80
+config.DATA.train_txt_path='data/baiguang-train.txt'
+config.DATA.val_txt_path='data/baiguang-val.txt'
+config.DATA.num_category=29                                  ###face 1  voc 20 coco 80
 config.DATA.num_class = config.DATA.num_category
 
 config.DATA.PIXEL_MEAN = [127.]                 ###rgb
 config.DATA.PIXEL_STD = [127.]
 
-config.DATA.hin = 512  # input size
-config.DATA.win = 512
+# config.DATA.hin = 512  # input size
+# config.DATA.win = 512
+config.DATA.hin = 288  # input size
+config.DATA.win = 384
 config.DATA.channel = 3
 config.DATA.max_size=[config.DATA.hin,config.DATA.win]  ##h,w
 config.DATA.cover_small_face=0                          ###cover the small faces
@@ -62,10 +64,10 @@ config.DATA.max_objs=128
 ##mobilenetv3 as basemodel
 config.MODEL = edict()
 config.MODEL.continue_train=False ### revover from a trained model
-config.MODEL.model_path = './weights/coco-v3-large_0.75'  # save directory
+config.MODEL.model_path = './weights/baiguang-mbv3'  # save directory
 config.MODEL.net_structure='MobilenetV3' ######'resnet_v1_50,resnet_v1_101,MobilenetV2
 config.MODEL.pretrained_model='./v3-large_224_0.75_float/ema/model-220000'
-config.MODEL.task='mscoco'
+config.MODEL.task='baiguang'
 config.MODEL.min_overlap=0.7
 config.MODEL.max_box= 100
 config.MODEL.offset= True
