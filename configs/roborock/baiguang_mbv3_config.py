@@ -67,10 +67,10 @@ config.DATA.max_objs=128
 
 ##mobilenetv3 as basemodel
 config.MODEL = edict()
-config.MODEL.continue_train=False ### revover from a trained model
-config.MODEL.model_path = './weights/baiguang-mbv3/baiguang-mbv3'  # save directory
+config.MODEL.continue_train=True ### revover from a trained model
+config.MODEL.model_path = './weights/baiguang-mbv3/baiguang-mbv3-continue'  # save directory
 config.MODEL.net_structure='MobilenetV3' ######'resnet_v1_50,resnet_v1_101,MobilenetV2
-config.MODEL.pretrained_model='./weights/baiguang-mbv3epoch_46L2_5e-05.ckpt'
+config.MODEL.pretrained_model='./weights/baiguang-mbv3/baiguang-mbv3epoch_60L2_5e-05.ckpt'
 config.MODEL.task='baiguang'
 config.MODEL.min_overlap=0.7
 config.MODEL.max_box= 100
